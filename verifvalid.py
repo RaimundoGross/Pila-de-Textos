@@ -15,7 +15,7 @@ def calc_largo(texto):
             total += 1
         else:
             return -1
-    return 0
+    return total
 
 def ingresar_op(n_options):
     while True:
