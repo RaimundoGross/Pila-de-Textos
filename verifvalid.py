@@ -19,13 +19,16 @@ def calc_largo(texto):
 
 def ingresar_op(n_options):
     while True:
-        op = input("> ")
-        if op not in list(range(n_options + 1)):
-            print("La opcion ingresada no es válida. Por favor intentelo nuevamente") 
+        try:
+            op = int(input("> "))
+            if op not in list(range(n_options + 1)):
+                raise ValueError
+        except ValueError as v:
+             print("La opcion ingresada no es válida. Por favor intentelo nuevamente")
         else:
             break
 
-    return int(op)
+    return op
 
 def print_texto(n_texto):
     print(stack[n_texto][0])
@@ -78,6 +81,7 @@ def cmp_textos():
                     print("Ambos textos tienen el mismo largo ("+str(op)+" caracteres).")
 
 def ingresar_texto():
+    print("Ingrese el texto que desee agregar a la pila:")
     while True:
         texto = input("> ")
         largo = calc_largo(texto)
@@ -87,7 +91,7 @@ def ingresar_texto():
         else:
             break
     stack.append((texto, largo))
-
+    global size
     if size != 0:
         if largo > stack[index_larger][1]:
             index_larger = size
