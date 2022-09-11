@@ -119,32 +119,33 @@ def mostrar_texto():
         
 
 def menu():
-    texto_menu = """
-    
-    Seleccione una de las siguientes opciones ingresando su respectivo numero:
-    
-    1) Ingresar un texto nuevo a la pila.
-    2) Mostrar el texto mas largo de la pila.
-    3) Mostrar el texto mas corto de la pila
-    4) Mostrar un texto es especifico de la pila
-    5) Comparar dos textos de la pila
+    while True:
+        texto_menu = """
+        
+        Seleccione una de las siguientes opciones ingresando su respectivo numero:
+        
+        1) Ingresar un texto nuevo a la pila.
+        2) Mostrar el texto mas largo de la pila.
+        3) Mostrar el texto mas corto de la pila
+        4) Mostrar un texto es especifico de la pila
+        5) Comparar dos textos de la pila
 
-    0) Salir"""
+        0) Salir"""
 
-    print(texto_menu)
-    op = ingresar_op(5)
-    if op == 1:
-        ingresar_texto()
-    elif op == 2:
-        texto_largo()
-    elif op == 3:
-        texto_corto()
-    elif op == 4:
-        mostrar_texto()
-    elif op == 5:
-        cmp_textos()
-    else:
-        return
+        print(texto_menu)
+        op = ingresar_op(5)
+        if op == 1:
+            ingresar_texto()
+        elif op == 2:
+            texto_largo()
+        elif op == 3:
+            texto_corto()
+        elif op == 4:
+            mostrar_texto()
+        elif op == 5:
+            cmp_textos()
+        else:
+            break
 
 #--------------------------------------------------------- PROGRAMA -----------------------------------------------
 
