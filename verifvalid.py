@@ -91,7 +91,7 @@ def ingresar_texto():
         else:
             break
     stack.append((texto, largo))
-    global size
+    global size, index_larger, index_shorter
     if size != 0:
         if largo > stack[index_larger][1]:
             index_larger = size
