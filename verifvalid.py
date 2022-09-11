@@ -36,19 +36,19 @@ def print_texto(n_texto):
 
 def texto_largo():
     if size == 0:
-        print("La pila se encuentra vacia. Ingrese un texto primero")
+        print("\nLa pila se encuentra vacia. Ingrese un texto primero")
         #log se pide texto mas largo, rechazado por pila vacia
     else:
-        print("El texto mas largo de la pila es:")
+        print("\nEl texto mas largo de la pila es:")
         print_texto(index_larger)
         #log se muestra el texto mas largo tanto
 
 def texto_corto():
     if size == 0:
-        print("La pila se encuentra vacia. Ingrese un texto primero")
+        print("\nLa pila se encuentra vacia. Ingrese un texto primero")
         #log se pide texto mas corto, rechazado por pila vacia
     else:
-        print("El texto mas largo de la pila es:")
+        print("\nEl texto mas largo de la pila es:")
         print_texto(index_shorter)
         #log se muestra el texto mas corto tanto
 
@@ -81,7 +81,7 @@ def cmp_textos():
                     print("Ambos textos tienen el mismo largo ("+str(op)+" caracteres).")
 
 def ingresar_texto():
-    print("Ingrese el texto que desee agregar a la pila:")
+    print("\nIngrese el texto que desee agregar a la pila:")
     while True:
         texto = input("> ")
         largo = calc_largo(texto)
@@ -98,18 +98,19 @@ def ingresar_texto():
         if largo < stack[index_shorter][1]:
             index_shorter = size
     size += 1 
+    print("El texto ha sido agregado a la pila correctamente. Su largo es de", largo)
     #log nuevo texto agregado en la pos tanto?
 
 def mostrar_texto():
     if size == 0:
-        print("La pila se encuentra vacia. Ingrese un texto primero")
+        print("\nLa pila se encuentra vacia. Ingrese un texto primero")
         #log se pide mostrar texto, se rechaza por pila vacia
     elif size == 1:
-        print("En la pila existe un unico texto: ")
+        print("\nEn la pila existe un unico texto: ")
         print_texto(0)
         #log se muestra el texto 0
     else:
-        print("En la pila existen", size, "textos. Ingrese un numero entre 1 y", size, "para poder ver uno de los textos (0 para cancelar).")
+        print("\nEn la pila existen", size, "textos. Ingrese un numero entre 1 y", size, "para poder ver uno de los textos (0 para cancelar).")
         op = ingresar_op(size)
         if op == 0:
             print("Operacion cancelada.")
@@ -122,15 +123,15 @@ def menu():
     while True:
         texto_menu = """
         
-        Seleccione una de las siguientes opciones ingresando su respectivo numero:
+Seleccione una de las siguientes opciones ingresando su respectivo numero:
         
-        1) Ingresar un texto nuevo a la pila.
-        2) Mostrar el texto mas largo de la pila.
-        3) Mostrar el texto mas corto de la pila
-        4) Mostrar un texto es especifico de la pila
-        5) Comparar dos textos de la pila
+1) Ingresar un texto nuevo a la pila.
+2) Mostrar el texto mas largo de la pila.
+3) Mostrar el texto mas corto de la pila
+4) Mostrar un texto es especifico de la pila
+5) Comparar dos textos de la pila
 
-        0) Salir"""
+0) Salir"""
 
         print(texto_menu)
         op = ingresar_op(5)
