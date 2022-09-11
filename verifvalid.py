@@ -19,13 +19,13 @@ def calc_largo(texto):
 
 def ingresar_op(n_options):
     while True:
-        op = int(input("> "))
+        op = input("> ")
         if op not in list(range(n_options + 1)):
             print("La opcion ingresada no es válida. Por favor intentelo nuevamente") 
         else:
             break
 
-    return op
+    return int(op)
 
 def print_texto(n_texto):
     print(stack[n_texto][0])
