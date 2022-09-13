@@ -10,12 +10,26 @@ Este programa almacena textos en una pila que son ingresados mediante línea de 
 * Comparar textos: Permite seleccionar dos textos de la pila para compararlos y saber cuál es más largo.
 * Salir: Termina el programa.
 
+## Requisitos
+
+* [Python 3.x](https://www.python.org/downloads/)
+* [logging](https://docs.python.org/3/library/logging.html)
+
 ## Instalación
 
+No requiere instalación
 ## Cómo Usar
 
+Para ejecutar el programa basta con correr el comando:
+
+```bash
+python3 verifvalid.py
+```
+Y se mostrará una interfaz como la siguiente:
+![interfaz](./assest/interfaz.png)
 ## Cómo Contribuir
 
+No se están aceptando contribuciones por el momento
 ## Licencia
 
 MIT License
