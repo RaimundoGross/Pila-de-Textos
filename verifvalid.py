@@ -4,7 +4,7 @@ import logging
 logging.basicConfig(filename='./logs/verifvalid.log', format='[%(asctime)s] %(levelname)s %(message)s', datefmt='%Y/%m/%d %H:%M:%S', level=logging.INFO)
 
 #--------------------------------------------------- VARIABLES GLOBALES -------------------------------------------
-allowed_symbols="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"#$%&/()=?¡¿}{[]+*'-_.:,;^~ \t\n"
+allowed_symbols="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"#$%&/()=?¡¿}{[]+*'’-_.:,;^~ "
 
 index_larger = 0
 index_shorter = 0
@@ -15,9 +15,12 @@ size = 0
 #-------------------------------------------------------- FUNCIONES -----------------------------------------------
 def calc_largo(texto):
     total = 0
-    for c in texto:
+    for i in list(range(len(texto))):
+        c = texto[i]
         if c in allowed_symbols:
             total += 1
+        elif c == '\\' and (texto[i+1] == 'n' or texto[i+1] == 't'):
+            pass
         else:
             return -1
     return total
@@ -27,7 +30,7 @@ def ingresar_op(n_options):
         try:
             op = input("> ")
             op = int(op)
-            if op not in list(range(n_options + 1)):
+            if op not in list(range(n_options)) and op != -1:
                 raise ValueError
         except ValueError:
             print("La opcion ingresada no es valida. Por favor intentelo nuevamente")
@@ -60,7 +63,7 @@ def texto_corto():
         logging.info('[Texto Corto] No se puede mostrar texto mas corto. Pila vacia')
         #log se pide texto mas corto, rechazado por pila vacia
     else:
-        print("\nEl texto mas largo de la pila es:")
+        print("\nEl texto mas corto de la pila es:")
         print_texto(index_shorter, log_label='[Texto Corto]')
         #log se muestra el texto mas corto tanto
 
@@ -71,9 +74,9 @@ def cmp_textos():
         logging.info('[Comparar Textos] No se puede realizar la comparacion. Cantidad de textos insuficientes')
         #log se pide comparar dos texto, rechazado por textos insuficientes
     else:
-        print("En la pila existen", size, "textos. Pogra ingresar dos numeros entre 1 y", size, "para poder comparar los textos (0 para cancelar).")
+        print("En la pila existen", size, "textos. Pogra ingresar dos numeros entre 0 y", size - 1, "para poder comparar los textos (-1 para cancelar).")
         op = ingresar_op(size)
-        if op == 0:
+        if op == -1:
             print("Operacion cancelada")
             logging.info('[Comparar Textos] Se cancela la operacion')
             #log se cancela comparacion de textos
@@ -84,20 +87,22 @@ def cmp_textos():
                 logging.info('[Comparar Textos] Se cancela la operacion')
                 #log se cancela comparacion de textos
             else:
+                texto1 = stack[op][0]
                 largo1 = stack[op][1]
+                texto2 = stack[op2][0]
                 largo2 = stack[op2][1]
                 diff = abs(largo1 - largo2)
                 if largo1 > largo2:
-                    print("El texto", op, "es mas largo que el texto", op2, "por", diff, "caracteres.")
-                    logging.info('[Comparar Textos] Textos %d y %d seleccionados. El texto %d es mas largo por %d caracteres', op, op2, op, diff)
+                    print("El texto", texto1, "es mas largo que el texto", texto2, "por", diff, "caracter(es).")
+                    logging.info('[Comparar Textos] Textos %s y %s seleccionados. El texto %s es mas largo por %d caracteres', texto1, texto2, texto1, diff)
                     #log se comparan texto op y op2, op es mas largo
                 elif largo1 < largo2:
-                    print("El texto", op2, "es mas largo que el texto", op, "por", diff, "caracteres.")
-                    logging.info('[Comparar Textos] Textos %d y %d seleccionados. El texto %d es mas largo por %d caracteres', op, op2, op2, diff)
+                    print("El texto", texto1, "es mas corto que el texto", texto2, "por", diff, "caracter(es).")
+                    logging.info('[Comparar Textos] Textos %d y %d seleccionados. El texto %d es mas largo por %d caracteres', texto1, texto2, texto2, diff)
                     #log se comparan texto op y op2, op2 es mas largo
                 else:
-                    print("Ambos textos tienen el mismo largo ("+str(op)+" caracteres).")
-                    logging.info('[Comparar Textos] Textos %d y %d seleccionados. Ambos textos son del mismo largo (%d caracteres)', op, op2, largo1)
+                    print("Ambos textos tienen el mismo largo ("+str(largo1)+" caracteres).")
+                    logging.info('[Comparar Textos] Textos %s y %s seleccionados. Ambos textos son del mismo largo (%d caracteres)', texto1, texto2, largo1)
 
 def ingresar_texto():
     print("\nIngrese el texto que desee agregar a la pila:")
@@ -113,9 +118,9 @@ def ingresar_texto():
     stack.append((texto, largo))
     global size, index_larger, index_shorter
     if size != 0:
-        if largo > stack[index_larger][1]:
+        if largo >= stack[index_larger][1]:
             index_larger = size
-        if largo < stack[index_shorter][1]:
+        if largo <= stack[index_shorter][1]:
             index_shorter = size
     size += 1 
     print("El texto ha sido agregado a la pila correctamente. Su largo es de", largo)
@@ -132,11 +137,11 @@ def mostrar_texto():
         print_texto(0, log_label='[Mostrar Texto]')
         #log se muestra el texto 0
     else:
-        print("\nEn la pila existen", size, "textos. Ingrese un numero entre 1 y", size, "para poder ver uno de los textos (0 para cancelar).")
+        print("\nEn la pila existen", size, "textos. Ingrese un numero entre 0 y", size - 1, "para poder ver uno de los textos (-1 para cancelar).")
         op = ingresar_op(size)
-        if op == 0:
+        if op == -1:
             print("Operacion cancelada.")
-            logging.info('[Mostrar Texto] Operación cancelada')
+            logging.info('[Mostrar Texto] Operacion cancelada')
         else:
             print_texto(op, log_label='[Mostrar Texto]')
             #log (se printeo el texto tanto)
