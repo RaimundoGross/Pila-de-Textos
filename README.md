@@ -26,6 +26,7 @@ Para ejecutar el programa basta con correr el comando:
 python3 verifvalid.py
 ```
 Y se mostrará una interfaz como la siguiente:
+
 ![interfaz](./assest/interfaz.png)
 ## Cómo Contribuir
 
